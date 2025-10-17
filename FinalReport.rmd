@@ -29,6 +29,7 @@ If not, then whose view differs from whom??
 # Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method. Discuss what data manipulations may be needed for example subsetting or other binning procedures and what sort of graphical displays and inferential tools will be used!-->
+This assignment is using the categorical-categorical helper file. There were three categories "black", "white", and "others".
 
 # Results
 
@@ -40,7 +41,20 @@ If not, then whose view differs from whom??
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question. Bottom line is to explain the features of the graph that are relevant to conforming or departing to what is expected by your null hypothesis !-->
 
+```{r}
+dd3 <- mydata %>% group_by(cappun,race) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
 
+
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd3,aes(x=cappun,y=count,fill=race))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd3,aes(x=cappun,y=prcnt*100,fill=race)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
 
 ## Now with LESS data (more variables give less data due to NA's) create the approate graphic displays to answer the question.
 
@@ -52,9 +66,13 @@ If not, then whose view differs from whom??
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+table2 <- xtabs(~cappun + race, data=mydata)
+rowPerc(table2)
+colPerc(table2)
+```
 
-
-
+People who preferred in capital punishment are majority white by 80% while black people had 11.72% and others had 9.33%. 66% of white people opposed while 22.64 black people opposed and 10.47 other people opposed.
 
 
 ## Inferential Results
@@ -62,9 +80,13 @@ If not, then whose view differs from whom??
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
 `
+```{r}
+fisherXY(mydata$race,mydata$cappun)
+```
 
-
-
+Statistically each group is defferent from th others but the p-values for all are low.
+  
+  
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
