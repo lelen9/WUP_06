@@ -72,7 +72,7 @@ rowPerc(table2)
 colPerc(table2)
 ```
 
-People who preferred in capital punishment are majority white by 80% while black people had 11.72% and others had 9.33%. 66% of white people opposed while 22.64 black people opposed and 10.47 other people opposed.
+People who preferred in capital punishment are majority white by 80% while black people had 11.72% and others had 9.33%. 66% of white people opposed while 22.64 black people opposed and 10.47 other people opposed. 
 
 
 ## Inferential Results
